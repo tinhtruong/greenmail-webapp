@@ -26,7 +26,8 @@ public class GreenmailServlet extends HttpServlet {
 		}
 		String page = req.getParameter(Constants.PAGE_NAME_PARAM);
 		if (page == null || page.trim().length() == 0) {
-			resp.sendRedirect(String.format("/?%s=%s", Constants.PAGE_NAME_PARAM, Constants.MAIL_PAGE));
+			String contextPath = getServletContext().getContextPath();
+			resp.sendRedirect(String.format("%s/?%s=%s", contextPath, Constants.PAGE_NAME_PARAM, Constants.MAIL_PAGE));
 			return;
 		}
 		getServletContext().getRequestDispatcher("/WEB-INF/jsp/master.jsp").forward(req, resp);

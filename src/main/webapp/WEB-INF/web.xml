@@ -11,6 +11,17 @@
 	</servlet>
 	
 	<servlet>
+        <servlet-name>setup-servlet</servlet-name>
+        <servlet-class>me.tinhtruong.greenmailwebapp.servlet.SetupServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>setup-servlet</servlet-name>
+        <url-pattern>/restart</url-pattern>
+    </servlet-mapping>
+	
+	
+	<servlet>
         <servlet-name>greenmail-servlet</servlet-name>
         <servlet-class>me.tinhtruong.greenmailwebapp.servlet.GreenmailServlet</servlet-class>
     </servlet>

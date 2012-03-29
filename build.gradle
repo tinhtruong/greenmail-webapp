@@ -14,5 +14,25 @@ repositories {
 
 dependencies {
     compile "com.icegreen:greenmail:1.3.1b"
+    compile "jstl:jstl:1.2"
     providedCompile "javax.servlet:servlet-api:2.5"
+}
+
+buildDir = new File("/tmp/gradle/" + project.name);
+
+eclipse {
+	project {
+		linkedResource name: 'build', type:'2', location: buildDir.absolutePath
+	}
+	classpath {
+		file {
+			whenMerged { classpath ->
+				classpath.entries.each { entry ->
+					if (entry.kind == 'output') {
+						entry.path = 'build/eclipse-output';
+					}
+				}
+			}
+		}
+	}
 }
