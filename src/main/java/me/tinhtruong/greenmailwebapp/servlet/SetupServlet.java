@@ -2,8 +2,11 @@ package me.tinhtruong.greenmailwebapp.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,10 +26,15 @@ public class SetupServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<String> errorMessages = new ArrayList<String>();
+		HttpSession session = req.getSession();
+		ServletContext context = session.getServletContext();
+		GreenMail greenMail = (GreenMail) session.getServletContext().getAttribute(Constants.GREENMAIL_INSTANCE_ATTRIBUTE_NAME);
+		
 		String[] protocols = req.getParameterValues("protocols");
 		if (protocols == null || protocols.length == 0) {
 			errorMessages.add("Please enable at least one protocol!");
 		} else {
+			greenMail.stop();
 			for (String protocol : protocols) {
 				int protocolPort = Integer.parseInt(req.getParameter(protocol + "Port"), 10);
 				if (!PortUtils.isPortAvailable(protocolPort)) {
@@ -34,22 +42,20 @@ public class SetupServlet extends HttpServlet {
 				}
 			}
 		}
-		HttpSession session = req.getSession();
+		
 		session.setAttribute(Constants.ERROR_MESSAGES, errorMessages);
 		if (errorMessages.size() == 0) {
 			try {
-				GreenMail greenMail = (GreenMail) session.getServletContext().getAttribute(Constants.GREENMAIL_INSTANCE_ATTRIBUTE_NAME);
-				greenMail.stop();
-				Thread.sleep(1500);
-				List<ServerSetup> setups = new ArrayList<ServerSetup>();
+				Map<String, ServerSetup> setups = new HashMap<String, ServerSetup>();
 				for (String protocol : protocols) {
 					int protocolPort = Integer.parseInt(req.getParameter(protocol + "Port"), 10);
-					setups.add(new ServerSetup(protocolPort, null, protocol));
+					setups.put(protocol, new ServerSetup(protocolPort, null, protocol));
 				}
-				greenMail = new GreenMail(setups.toArray(new ServerSetup[0]));
+				greenMail = new GreenMail(setups.values().toArray(new ServerSetup[0]));
 			
 				greenMail.start();
-				session.getServletContext().setAttribute(Constants.GREENMAIL_INSTANCE_ATTRIBUTE_NAME, greenMail);
+				context.setAttribute(Constants.GREENMAIL_INSTANCE_ATTRIBUTE_NAME, greenMail);
+				context.setAttribute(Constants.CURRENT_SERVER_SETUP_ATTRIBUTE_NAME, setups);
 				session.setAttribute(Constants.MESSAGE, "Restart successfully");
 			} catch (Exception e) {
 				errorMessages.add(e.getMessage());

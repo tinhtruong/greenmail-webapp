@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="me.tinhtruong.greenmailwebapp.utils.Constants"%>
+<%@ page import="com.icegreen.greenmail.util.ServerSetup"%>
+<%@ page import="java.util.Map"%>
 
 <div>
 	<form class="form-horizontal"
@@ -31,19 +33,33 @@
                 <c:otherwise>
                 </c:otherwise>
 			</c:choose>
+			<c:set var="serverSetupAttributeName"
+                value="<%= Constants.ALL_SERVER_SETUP_ATTRIBUTE_NAME %>" />
+            <c:set var="currentServerSetupAttributeName"
+                value="<%= Constants.CURRENT_SERVER_SETUP_ATTRIBUTE_NAME %>" />
+            <%
+                int allLength = ((ServerSetup[])application.getAttribute(Constants.ALL_SERVER_SETUP_ATTRIBUTE_NAME)).length;
+                int currentLength = ((Map<String, ServerSetup>)application.getAttribute(Constants.CURRENT_SERVER_SETUP_ATTRIBUTE_NAME)).keySet().size();
+            %>
+            <c:set var="isAll" value="<%= allLength == currentLength%>"/>
 			<table class="table table-condensed">
             <thead>
                 <tr>
-                    <th><input type="checkbox" name="all"></th>
+                    <th>
+                    <c:choose>
+                        <c:when test="${isAll}">
+                        <input type="checkbox" name="all" checked="checked">
+                        </c:when>
+                        <c:otherwise>
+                        <input type="checkbox" name="all">
+                        </c:otherwise>
+                    </c:choose>
+                    </th>
                     <th>Protocol</th>
                     <th>Port</th>
                 </tr>
             </thead>
             <tbody>
-            <c:set var="serverSetupAttributeName"
-                value="<%= Constants.ALL_SERVER_SETUP_ATTRIBUTE_NAME %>" />
-            <c:set var="currentServerSetupAttributeName"
-                value="<%= Constants.CURRENT_SERVER_SETUP_ATTRIBUTE_NAME %>" />
             <c:forEach items="${applicationScope[serverSetupAttributeName] }" var="serverSetup">
                 <tr>
                     <td>
