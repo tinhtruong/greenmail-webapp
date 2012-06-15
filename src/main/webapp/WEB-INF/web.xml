@@ -7,6 +7,10 @@
 	<servlet>
 		<servlet-name>bootstrap-servlet</servlet-name>
 		<servlet-class>me.tinhtruong.greenmailwebapp.servlet.BootstrapServlet</servlet-class>
+<!-- 		<init-param> -->
+<!--             <param-name>development</param-name> -->
+<!--             <param-value>true</param-value> -->
+<!--         </init-param> -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
@@ -18,6 +22,16 @@
     <servlet-mapping>
         <servlet-name>setup-servlet</servlet-name>
         <url-pattern>/restart</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>download-servlet</servlet-name>
+        <servlet-class>me.tinhtruong.greenmailwebapp.servlet.DownloadAttachmentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>download-servlet</servlet-name>
+        <url-pattern>/download</url-pattern>
     </servlet-mapping>
 	
 	

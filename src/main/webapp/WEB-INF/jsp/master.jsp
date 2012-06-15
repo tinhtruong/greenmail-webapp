@@ -7,7 +7,7 @@
 <title>GreenMail ${currentPage }</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/${currentPage }.css" />
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/${currentPage}.css" />
 </head>
 <body>
     <div class="container-fluid">
@@ -31,8 +31,8 @@
             <jsp:include page="/WEB-INF/jsp/include/footer.jsp"/>
         </div>
     </div>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/${currentPage }.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/${currentPage}.js"></script>
 </body>
 </html>

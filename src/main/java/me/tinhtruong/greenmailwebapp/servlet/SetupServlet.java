@@ -17,9 +17,9 @@ import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
 
 import me.tinhtruong.greenmailwebapp.utils.Constants;
-import me.tinhtruong.greenmailwebapp.utils.PortUtils;
+import me.tinhtruong.greenmailwebapp.utils.Utils;
 
-public class SetupServlet extends HttpServlet {
+public class SetupServlet extends ActionServlet {
 
 	private static final long serialVersionUID = 2083863593836804812L;
 	
@@ -28,7 +28,7 @@ public class SetupServlet extends HttpServlet {
 		List<String> errorMessages = new ArrayList<String>();
 		HttpSession session = req.getSession();
 		ServletContext context = session.getServletContext();
-		GreenMail greenMail = (GreenMail) session.getServletContext().getAttribute(Constants.GREENMAIL_INSTANCE_ATTRIBUTE_NAME);
+		GreenMail greenMail = getGreenMailInstance(req);
 		
 		String[] protocols = req.getParameterValues("protocols");
 		if (protocols == null || protocols.length == 0) {
@@ -37,7 +37,7 @@ public class SetupServlet extends HttpServlet {
 			greenMail.stop();
 			for (String protocol : protocols) {
 				int protocolPort = Integer.parseInt(req.getParameter(protocol + "Port"), 10);
-				if (!PortUtils.isPortAvailable(protocolPort)) {
+				if (!Utils.isPortAvailable(protocolPort)) {
 					errorMessages.add("Port " + protocolPort + " is not available.");
 				}
 			}

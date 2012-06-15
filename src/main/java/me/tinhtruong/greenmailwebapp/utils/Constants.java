@@ -8,6 +8,8 @@ public interface Constants {
 	public static final String MESSAGE = "__greenmail__message";
 	
 	public static final String PAGE_NAME_PARAM = "page";
+	public static final String MESSAGE_ID_PARAM = "messageId";
+	public static final String FILE_NAME_PARAM = "fileName";
 	
 	// Page name constants
 	public static final String MAIL_PAGE = "mail";
