@@ -80,6 +80,6 @@
         </table>
 		</fieldset>
 		<button type="submit" class="btn btn-primary">Restart GreenMail</button>
-		<div class="alert alert-info">Note: All messages will be removed when you restart the Green Mail server!</div>
+		<div id="restartWarning">Note: All messages will be removed when you restart the Green Mail server!</div>
 	</form>
 </div>
