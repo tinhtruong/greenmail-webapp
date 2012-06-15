@@ -14,3 +14,11 @@ table thead:first-child tr:first-child th#from
 {
     width: 150px !important;
 }
+
+div.attachmentGroup ul {
+	list-style: none;
+	margin-left: 0;
+}
+div.attachmentGroup ul span {
+	font-weight: bold;
+}

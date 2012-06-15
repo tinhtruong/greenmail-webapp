@@ -31,10 +31,8 @@
             i ++;
         %>
         <div class="modal hide" id="dialog-<%=i%>">
-            <div class="modal-header">
-                <h3><%=message.getSubject()%></h3>
-            </div>
             <div class="modal-body">
+                <label>Subject: <%=message.getSubject()%></label>
                 <label>From: <%=GreenMailUtil.getAddressList(message.getFrom())%></label>
                 <label>To: <%=GreenMailUtil.getAddressList(message.getRecipients(RecipientType.TO))%></label>
                 <%
@@ -47,20 +45,30 @@
                 %>
                 <label>BCC: <%=GreenMailUtil.getAddressList(message.getRecipients(RecipientType.BCC))%></label>
                 <%}%>
+                <hr/>
                 <div id="mailContent">
                     <%=Utils.getMessageText(message)%>
                 </div>
+                
                 <%
                 if (GreenMailUtil.hasNonTextAttachments(message)) {
                 %>
+                    <hr/>
                     <div class="attachmentGroup">
+                    <ul>
                 <%
                     for (String attachedFilename : Utils.getAttachmentFileNames(message)) {
                 %>
-                        <a href="${pageContext.request.contextPath }/download?<%=Constants.MESSAGE_ID_PARAM%>=<%=message.getMessageID()%>&<%=Constants.FILE_NAME_PARAM%>=<%=attachedFilename%>"><%=attachedFilename%></a>
+                        <li>
+                        <a href="${pageContext.request.contextPath }/download?<%=Constants.MESSAGE_ID_PARAM%>=<%=message.getMessageID()%>&<%=Constants.FILE_NAME_PARAM%>=<%=attachedFilename%>">
+                        <img src="${pageContext.request.contextPath }/img/attachment-icon.png" alt="Attachment" width="16px" height="16px"/>
+                        <%=attachedFilename%>
+                        </a>
+                        </li>
                 <%
                     }
                 %>
+                    </ul>
                     </div>
                 <%
                 }
