@@ -73,12 +73,13 @@
                     </c:choose>
                     </td>
                     <td><c:out value="${fn:toUpperCase(serverSetup.protocol) }" /></td>
-                    <td><input type="text" name="${serverSetup.protocol }Port" value="${serverSetup.port }" class="span1"/></td>
+                    <td><input type="text" name="${serverSetup.protocol }Port" value="${serverSetup.port }" class="span1 PortText"/></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
 		</fieldset>
 		<button type="submit" class="btn btn-primary">Restart GreenMail</button>
+		<div class="alert alert-info">Note: All messages will be removed when you restart the Green Mail server!</div>
 	</form>
 </div>

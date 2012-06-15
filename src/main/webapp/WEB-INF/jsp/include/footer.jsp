@@ -1,3 +1,3 @@
 <footer>
-	Copyright &copy; by XXX. All rights reserved.
+	Copyright &copy; by tinhtruong.me. All rights reserved.
 </footer>

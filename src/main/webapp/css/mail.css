@@ -1,0 +1,16 @@
+table {
+	width: 70%;
+}
+
+table thead:first-child tr:first-child th:first-child {
+    width: .5em !important;
+}
+
+table input[type="checkbox"] {
+    margin: 0;
+}
+
+table thead:first-child tr:first-child th#from
+{
+    width: 150px !important;
+}
